@@ -129,7 +129,7 @@ int main(){
 
     printLL(head);
     cout<<endl;
-    insertAtPosition(0,155,head,tail);
+    insertAtPosition(1,155,head,tail);
     cout<<"LL after inserting at position:"<<endl;
     printLL(head);
 }
