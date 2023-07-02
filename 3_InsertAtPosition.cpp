@@ -96,7 +96,7 @@ void insertAtPosition(int position,int data,Node* &head,Node* &tail){
      //step 1: find the prev and curr node
      int i = 1;
      Node* prev = head;
-     while (i<position)
+     while (i<position-1)
      {
         prev = prev->next;
         i++;
