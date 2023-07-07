@@ -81,7 +81,7 @@ void insertAtPosition(int position,int data,Node* &head,Node* &tail){
         return;
      }
 
-     if(position == 0){
+     if(position == 1){
         InsertAthead(head,tail,data);
         return;
      }
