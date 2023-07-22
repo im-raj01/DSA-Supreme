@@ -1,0 +1,143 @@
+// insertion at head and tail and position
+//doubly LL
+#include<bits/stdc++.h>
+using namespace std;
+class Node{
+    public:
+    int data;
+    Node* prev;
+    Node* next;
+    Node(){
+        this->data = 0;
+        this->prev = NULL;
+        this->next = NULL;
+
+    }
+    Node(int data){
+        this->data = data;
+        this->prev = NULL;
+        this->next = NULL;
+    }
+};
+
+void print(Node* &head){
+    Node* temp = head;
+    while (temp!= NULL)
+    {
+        cout<<temp->data<<" ";
+        temp = temp->next;
+
+    }
+} 
+int getLength(Node* &head){
+    int len = 0;
+    Node* temp = head;
+    while(temp != NULL){
+        temp = temp->next;
+        len++;
+    }
+    return len;
+}
+
+void insertAtHead(Node* &head,Node* &tail,int data){
+    if(head == NULL){
+        Node* newNode = new Node(data);
+        head = newNode;
+        tail = newNode;
+        return ;
+    }
+    // 1- create a newnode 
+        Node* newNode = new Node(data);
+    //2- newnode->next = head;
+    newNode->next = head;
+    //3 - head->prev = newnode;
+    head->prev = newNode;
+    // head ko update kar denge 
+    head = newNode;
+    
+    return;
+} 
+
+void insertAtTail(Node* &head,Node* &tail,int data){
+    if(head == NULL){
+        Node* newNode = new Node(data);
+        head = newNode;
+        tail = newNode;
+        return ;
+    }
+    //1
+    Node* newNode = new Node(data);
+    //2
+    tail->next = newNode;
+    //3
+    newNode->prev = tail;
+    //4.
+    tail = newNode;
+}
+
+void insertAtPosition(Node* &head,Node* &tail,int position,int data){
+    if(head == NULL){
+        Node* newNode = new Node(data);
+        head = newNode;
+        tail = newNode;
+        return ;
+    }
+    if(position == 1){
+        insertAtHead(head,tail,data);
+        return;
+    }
+    int len = getLength(head);
+    if(position>len){
+        insertAtTail(head,tail,data);
+        return;
+    }
+    //step 1- find prevNode and currNode:
+    int i = 1;
+    Node* prevNode = head;
+    while (i < position-1)
+    {
+        prevNode = prevNode->next;
+        i++;
+    }
+    Node* currNode = prevNode->next;
+
+    // step 2: create a node
+    Node* newNode = new Node(data);
+    //3
+    prevNode->next = newNode;
+    //4
+    newNode->prev = prevNode;
+    //5
+    currNode->prev = newNode;
+    //6
+    newNode->next = currNode;
+
+    return;
+}
+int main(){
+    Node* first = new Node(10);
+    Node* second = new Node(20);   
+    Node* third = new Node(30);   
+
+    // Node* head = first;
+    // Node* tail = third;
+    first->next = second;
+    second->prev = first;
+
+    second->next = third;
+    third->prev = second;
+
+    print(first);
+    cout<<endl;
+    insertAtHead(first,third,50);
+    print(first);
+    cout<<endl;
+    insertAtTail(first,third,90);
+    print(first);
+    insertAtPosition(first,third,6,401);
+    cout<<endl;
+    print(first);
+
+    return 0;
+
+}
