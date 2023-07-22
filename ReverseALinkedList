@@ -1,0 +1,129 @@
+//Reverse A Linked List
+
+#include<bits/stdc++.h>
+using namespace std;
+class Node{
+    public:
+    int data;
+    Node* next;
+
+    Node(){
+        this->data = 0;
+        this->next =NULL;
+    }
+    Node(int data){
+        this->data = data;
+        this->next = NULL;
+    }
+
+};
+void printLL(Node* &head){
+    Node* temp = head;
+    while(temp != NULL){
+        cout<<temp->data<<" ";
+        temp = temp->next;
+    }
+
+}
+
+void InsertAthead(Node* &head,Node* &tail,int data){
+     if(head == NULL){
+       Node* newNode = new Node(data);
+       head = tail = newNode;
+       return;  
+     }
+     Node* newNode = new Node(data);
+     newNode->next = head;
+     head = newNode;
+}
+
+void InsertAtTail(Node* &tail,Node* &head,int data){
+
+    if(head == NULL){
+       Node* newNode = new Node(data);
+       head = tail = newNode;
+       return;  
+     }
+    // step 1 : create a newnode
+    Node* newNode = new Node(data);
+
+    // step2 : tail ko point kar diya newnode pe 
+    tail->next = newNode;
+    tail = newNode;
+}
+
+
+Node* reverseUsingLoop(Node* &head){
+    Node* prev = NULL;
+    Node* curr = head;
+
+    while (curr!= NULL)
+    {
+        Node* temp = curr->next;
+        curr->next = prev;
+
+        prev = curr;
+        curr = temp;
+    }
+    return prev;
+}
+
+Node* reverseUsingRecursion(Node* prev,Node* curr){
+        // base case
+        if(curr == NULL)
+        {
+            // linked list reverse ho chuka hai
+            return prev;
+        }
+
+        Node* forward = curr->next;
+        curr->next = prev;
+
+        // prev = curr;
+        // curr = forward;
+        return reverseUsingRecursion(curr,forward);
+}
+int main(){
+   /* Node* first = new Node(10);
+    Node* second = new Node(20);
+    Node* third = new Node(30);
+    Node* fourth = new Node(40);
+    Node* fifth = new Node(50);
+    Node* sixth = new Node(60);
+
+
+
+    first->next = second;
+    second->next = third;
+    third->next = fourth;
+    fourth->next = fifth;
+    fifth->next = sixth;
+    */
+   Node *head = NULL;
+   Node *tail = NULL;
+
+    // printLL(head);
+    // cout<<endl;
+    InsertAthead(head,tail,70);
+    InsertAthead(head,tail,50);
+    InsertAthead(head,tail,30);
+    InsertAthead(head,tail,20);
+    InsertAtTail(tail,head,80);
+    cout<<"After inserting at head"<<endl;
+    printLL(head);
+    cout<<endl;
+
+    // cout<<"After reversing using loop"<<endl;
+    // head = reverseUsingLoop(head);
+    // printLL(head);
+    Node* prev = NULL;
+    Node* curr = head;
+    cout<<"After reversing using recursion"<<endl;
+    
+    head = reverseUsingRecursion(prev,curr);
+    printLL(head);
+
+
+
+
+}
