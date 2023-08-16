@@ -1,0 +1,100 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+class Node{
+    public:
+        int data;
+        Node* left;
+        Node* right;
+
+        Node(int data) {
+                this->data = data;
+                this->left = NULL;     
+                this->right = NULL;  
+        }
+};
+
+int findPosition(int inorder[],int size,int Element){
+    for (int i = 0; i < size; i++)
+    {
+        if(inorder[i] == Element){
+            return i;
+        }
+    }
+    return -1;
+}
+
+
+void levelOrderTraversal(Node* root){
+    queue<Node*>q;
+
+    //inititally
+    q.push(root);
+    q.push(NULL);
+
+    while(!q.empty()){
+      
+        Node* temp = q.front();
+        q.pop();
+
+        if(temp == NULL){
+            //purana level complete ho chuka hai.
+            cout<<endl;
+            if(!q.empty()){
+                q.push(NULL);
+            }
+        }
+       else{
+        cout<<temp->data<<" ";
+
+       
+        if(temp->left){
+            q.push(temp->left);
+        }
+         if(temp->right){
+            q.push(temp->right);
+        }
+       }
+    }
+
+}
+//build tree from inorder and preorder traversal:
+Node* buildTreeFromInorderPreorder(int inorder[],int preorder[],int size, int &preIndex,int inOrderStart,int inOrderEnd){
+    if(preIndex >= size || inOrderStart>inOrderEnd){
+        return NULL;
+    }
+
+    //A:create root Node:
+    int element = preorder[preIndex++];
+    Node* root = new Node(element);
+
+    //B: -> root->left create kar do
+    int pos = findPosition(inorder,size,element);
+    
+    root->left = buildTreeFromInorderPreorder(inorder,preorder,size,preIndex,inOrderStart,pos-1);
+   
+    //C: root->right:
+    root->right = buildTreeFromInorderPreorder(inorder,preorder,size,preIndex,pos+1,inOrderEnd);
+
+    return root;
+
+}
+
+int main()
+{
+        int inorder[] = {40,20,50,10,60,30,70};
+        int preorder[] = {10,20,40,50,30,60,70};
+        int size = 7;
+        int preIndex = 0;
+        int inorderStart = 0;
+        int inorderEnd = size-1;
+
+        cout << "Building Tree: " << endl;
+        Node* root = buildTreeFromInorderPreorder(inorder, preorder,size, preIndex, inorderStart, inorderEnd );
+
+        cout<< endl << "Printing level order traversal " << endl;
+        levelOrderTraversal(root);
+
+
+ return 0;
+}
