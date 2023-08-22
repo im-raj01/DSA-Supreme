@@ -1,0 +1,60 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+
+/*void printSubsequences(string str, string output, int i,vector<string>& v){
+    // base case
+    if(i>=str.size()){
+        // cout<<output<<" ";
+        v.push_back(output);
+        return;
+    }
+
+    //include 
+    output.push_back(str[i]);
+    printSubsequences(str,output,i+1,v);
+    output.pop_back();
+
+    // exclude ke liye 
+    printSubsequences(str,output,i+1,v);
+
+}
+*/
+
+void printSubsequences(string str, string output, int i,vector<string>& v){
+    // base case
+    if(i>=str.size()){
+        // cout<<output<<" ";
+        
+        v.push_back(output);
+        return;
+    }
+
+    // exclude ke liye 
+    printSubsequences(str,output,i+1,v);
+
+    //include 
+    output.push_back(str[i]);
+    printSubsequences(str,output,i+1,v);
+}
+
+
+
+
+int main()
+{
+    string str="abc";
+    string output = "";
+    int i = 0;
+
+    vector<string>v;
+    printSubsequences(str,output,i,v);
+    for(auto val: v){
+        cout<<val<<" ";
+    }
+    cout<<endl;
+    cout<<v.size()<<endl;
+
+
+ return 0;
+}
