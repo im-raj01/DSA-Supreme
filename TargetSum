@@ -1,0 +1,56 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+int Solve(int *arr,int n,int target){
+    if(target==0){
+        return 0;
+    }
+    if(target < 0){
+        return INT_MAX;
+    }
+
+    // 1case 
+    int mini = INT_MAX;
+    for (int i = 0; i < n; i++)
+    {
+        int ans = Solve(arr,n,target-arr[i]);
+        if(ans != INT_MAX)
+        mini = min(mini,ans+1);
+
+    }
+    return mini;
+    
+}
+
+// 2nd method
+int Solve(int *arr, int n,int target, int output){
+    if(output == target){
+        return 0;
+    }
+    if(output>target){
+        return INT_MAX;
+    }
+
+    // 1 case 
+    int mini = INT_MAX;
+    for (int i = 0; i < n; i++)
+    {
+        int ans = Solve(arr,n,target,output+arr[i]);
+        if(ans != INT_MAX){
+            mini = min(mini,ans+1);
+        }
+    }
+    return mini;
+    
+}
+
+int main()
+{
+    int n = 4;
+    int arr[4]={1,2,3,4};
+    int target=8;
+    int output = 0;
+    cout<<"Answer is: "<<Solve(arr,n,target,output)<<endl;
+
+ return 0;
+}
