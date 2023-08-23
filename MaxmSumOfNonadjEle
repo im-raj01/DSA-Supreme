@@ -1,0 +1,28 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+
+void Solve(vector<int>& arr, int i, int sum, int& maxi){
+    if(i >= arr.size()){
+        maxi = max(maxi,sum);
+        return;
+    }
+
+    // 1 case solve kar do 
+    //include 
+    Solve(arr,i+2,sum+arr[i],maxi);
+
+    // exclude
+    Solve(arr,i+1,sum,maxi);
+}
+int main()
+{
+    vector<int>arr={2,1,4,9};
+    int maxi = INT_MIN;
+    int i = 0;
+    int sum = 0;
+    Solve(arr,i,sum,maxi);
+
+    cout<<"Maximum sum of non-adjacent element is :"<<maxi<<endl;
+ return 0;
+}
