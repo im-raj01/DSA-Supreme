@@ -1,0 +1,63 @@
+// Given a rod of length 'n' and three segments x,y and z. you have to cut the rod in exactly the given segments and you have to return maximum no of segments/partiton reqd;
+
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+
+int Solve(vector<int>arr,int n){
+    if(n==0){
+        return 0;
+    }
+    if(n<0){
+        return INT_MIN;
+    }
+    // 1 case 
+    int maxi = INT_MIN;
+    for (int i = 0; i < arr.size(); i++)
+    {
+        int ans = Solve(arr,n-arr[i]);
+
+        if(ans != INT_MIN)
+        maxi = max(ans+1,maxi);
+    }
+    return maxi;
+
+} 
+
+int Solve(int n,int x,int y,int z){
+    if(n== 0){
+        return 0;
+    }
+    if(n<0){
+        return INT_MIN;
+    }
+
+    int ans1 = Solve(n-x,x,y,z) + 1;
+    int ans2 = Solve(n-y,x,y,z) + 1;
+    int ans3 = Solve(n-z,x,y,z) + 1;
+
+    int ans = max(ans1, max(ans2,ans3));
+    return ans;
+}
+int main()
+{
+    int n=7; // length of rod;
+    int x = 3,y = 2,z=2;
+
+    //segments
+    vector<int>v;
+    v.push_back(x);
+    v.push_back(y);
+    v.push_back(z);
+
+    int ans = Solve(v,n);
+    cout<<ans<<endl;
+
+    int anss = Solve(n,x,y,z);
+    //invalid
+    if(anss< 0)
+        anss=0;
+
+    cout<<"Answer is :"<<anss<<endl;
+ return 0;
+}
