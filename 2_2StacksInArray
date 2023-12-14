@@ -1,0 +1,77 @@
+// implement 2 stacks in an array
+#include<iostream>
+using namespace std;
+
+class Stack{
+    public:
+    int *arr;
+    int size;
+    int top1;
+    int top2;
+
+    Stack(int size){
+        arr = new int[size];
+        this->size = size;
+        top1 = -1;
+        top2=size;
+    }
+
+    // functions;
+    void push1(int data){
+        if(top2-top1>1){
+            top1++;
+            arr[top1]=data;
+        }
+        else{
+            cout<<"Overflow in stack 1"<<endl;
+        }
+    }
+    void pop1(){
+        if(top1 == -1){
+            cout<<"UNDERFLOW IN STACK 1"<<endl;
+        }
+        else{
+            top1--;
+        }
+
+    }
+
+    void push2(int data){
+         if(top2-top1>1){
+            top2--;
+            arr[top2]=data;
+        }
+        else{
+            cout<<"Overflow"<<endl;
+        }
+
+    }
+
+    void pop2(){
+        if(top2 == size){
+            cout<<"UNDERFLOW IN STACK   2"<<endl;
+        }
+        else{
+            top2++;
+        }
+
+    }
+};
+int main(){
+    Stack s(10);
+
+    s.push1(10);
+    s.push1(20);
+    s.push1(30);
+    s.push1(40);
+    s.push1(50);
+
+    s.push2(60);
+    s.push2(70);
+    s.push2(80);
+    s.push2(90);
+    s.push2(100);
+
+
+
+}
