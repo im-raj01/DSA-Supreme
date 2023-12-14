@@ -1,0 +1,48 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+
+void InsertAtBottom(stack<int>&s,int target){
+
+    if(s.empty()){
+        cout<<"stack is empty"<<endl;
+        s.push(target);
+        return;
+    }
+
+    //recursive call
+    int temp = s.top();
+    s.pop();
+    InsertAtBottom(s,target);
+
+    //backtracking:
+    s.push(temp);
+
+}
+int main()
+{
+    stack<int>s;
+
+    s.push(5);
+    s.push(15);
+    s.push(27);
+    s.push(32);
+    s.push(11);
+    if(s.empty()){
+        return 0;
+    }
+    
+    int target = s.top();
+    s.pop();
+    InsertAtBottom(s,target);
+
+    while (!s.empty())
+    {
+        cout<<s.top()<<" ";
+        s.pop();
+        /* code */
+    }
+    
+
+ return 0;
+}
