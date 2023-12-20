@@ -1,0 +1,114 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+
+void insertSorted(stack<int>&s,int target){
+    if(s.empty()){
+        s.push(target);
+        return;
+    }
+    
+    if(s.top()>=target){
+        s.push(target);
+        return;
+    }
+
+    int topElement = s.top();
+    s.pop();
+    insertSorted(s,target);
+
+    s.push(topElement);
+}
+
+void stackSort(stack<int>&s){
+    if(s.empty()){
+        return;
+    }
+
+    int topElement = s.top();
+    s.pop();
+
+    stackSort(s);
+    //b.t
+    insertSorted(s,topElement);
+}
+int main()
+{
+    stack<int>s;
+    s.push(7);
+    s.push(11);
+    s.push(3);
+    s.push(5);
+    s.push(9);
+
+    stackSort(s);
+    cout<<"size "<<s.size()<<endl;
+    while (!s.empty())
+    {
+        /* code */
+        cout<<s.top()<<endl;
+        s.pop();
+    }
+    
+
+
+
+ return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+2nd method
+/*
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+int i = 0;
+void sortAstack(stack<int>&st,vector<int>& v){
+  if(st.empty()){
+    return;
+  }
+  int temp = st.top();
+  st.pop();
+  v.push_back(temp);
+  sortAstack(st,v);
+  // when stack is empty --> backtrack
+  sort(v.begin(),v.end(),greater<int>());
+  int len = v.size();
+  
+  cout<<v[i]<<endl;
+  st.push(v[i++]);
+  return;
+}
+int main()
+{
+  stack<int>st;
+  vector<int>v;
+  st.push(7);
+  st.push(11);
+  st.push(3);
+  st.push(5);
+  st.push(9);
+
+  sortAstack(st,v);
+  cout<<"ab stack print hoga"<<endl;
+  while (!st.empty())
+  {
+    cout<<st.top()<<endl;
+    st.pop();
+  }
+  
+
+
+
+ return 0;
+}
+*/
