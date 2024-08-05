@@ -47,3 +47,31 @@ public:
         }
     }
 };
+
+
+//2nd sol:
+class Solution {
+public:
+    pair<bool,int>CheckBalancedFast(TreeNode* root){
+        if(root == NULL){
+            // T, height
+            pair<int,int>p = make_pair(true,0);
+            return p;
+        }
+
+        pair<bool,int>left = CheckBalancedFast(root->left);
+        pair<bool,int>right = CheckBalancedFast(root->right);
+
+        bool leftAns = left.first;
+        bool rightAns = right.first;
+        bool rootAns = abs(left.second - right.second) <=1;
+
+        pair<bool,int>ans;
+        ans.first = (leftAns && rightAns && rootAns);
+        ans.second = max(left.second,right.second)+1;
+        return ans;
+    }
+    bool isBalanced(TreeNode* root) {
+        return CheckBalancedFast(root).first;
+    }
+};
