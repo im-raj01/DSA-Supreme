@@ -1,42 +1,27 @@
-#include <vector>
-#include <algorithm>
-using namespace std;
+ vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& q) {
+        vector<int> d(n, 0);
+        for (int i = 1; i < n; ++i) {
+            d[i] = d[i - 1] + 1;
+        }
 
-class Solution {
-public:
-    int minimumCost(int m, int n, vector<int>& horizontalCut, vector<int>& verticalCut) {
-        // Sort the cuts in descending order
-        sort(horizontalCut.rbegin(), horizontalCut.rend());
-        sort(verticalCut.rbegin(), verticalCut.rend());
-        
-        int h = 0, v = 0;
-        int hPieces = 1, vPieces = 1;
-        int totalCost = 0;
-        
-        while (h < horizontalCut.size() && v < verticalCut.size()) {
-            if (horizontalCut[h] > verticalCut[v]) {
-                totalCost += horizontalCut[h] * vPieces;
-                hPieces++;
-                h++;
-            } else {
-                totalCost += verticalCut[v] * hPieces;
-                vPieces++;
-                v++;
-            }
+        set<int> stt;
+        for (int i = 0; i < n; ++i) {
+            stt.insert(i);
         }
-        
-        
-        while (h < horizontalCut.size()) {
-            totalCost += horizontalCut[h] * vPieces;
-            h++;
+
+        vector<int> vec;
+
+        for (auto& qi : q) {
+            int l = qi[0];
+            int rt = qi[1];
+
+            auto lb = stt.lower_bound(l + 1);
+            auto ub = stt.lower_bound(rt);
+
+            stt.erase(lb, ub);
+
+            vec.push_back(stt.size() - 1);
         }
-        
-        // Add remaining vertical cuts
-        while (v < verticalCut.size()) {
-            totalCost += verticalCut[v] * hPieces;
-            v++;
-        }
-        
-        return totalCost;
+
+        return vec;
     }
-}; 
