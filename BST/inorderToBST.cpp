@@ -1,3 +1,6 @@
+// creation // insertion , searching, minm value, max value and deletion:
+
+
 #include<bits/stdc++.h>
 using namespace std;
 #define ll long long
@@ -14,7 +17,6 @@ class Node{
         this->right = NULL;
     }
 };
-
 Node* insertIntoBST(Node* &root,int data){
     if(root == NULL){
         // this is going to be our first node
@@ -107,25 +109,102 @@ void printPostorder(Node* &root){
     return;
 }
 
+
+// SEARCHING IN BST::
+//assuming there are only unique values in tree
+Node* findNodeInBST(Node* root, int target) {
+	///base case
+	if(root == NULL) {
+		return NULL;
+	}
+
+	if(root->data == target) 
+		return root;
+//assuming there are only unique values in tree
+	// Node* leftAns = false;
+	// Node* rightAns = false;
+	
+	if(target > root->data) {
+		//right subtree me search karo
+		return findNodeInBST(root->right,  target);
+        // rightAns = findNodeInBST(root->right,  target);
+	}
+	else {
+		return findNodeInBST(root->left,  target);
+        // leftAns = findNodeInBST(root->left,  target);
+
+	}
+    // return leftAns || rightAns;
+}
+
+// finding minimum value in BST::
+
+int minVal(Node* root) {
+	Node* temp = root;
+	if(temp == NULL) {
+		return -1;
+	}
+
+	while(temp -> left != NULL) {
+		temp = temp ->left;
+	}
+	return temp -> data;
+}
+
+// Finding maximum Value in BST::-->
+int maxVal(Node* root) {
+	Node* temp = root;
+	if(temp == NULL) {
+		return -1;
+	}
+
+	while(temp -> right != NULL) {
+		temp = temp ->right;
+	}
+	return temp -> data;
+}
+
+Node* bstUsingInorder(int inorder[],int s,int e){
+    // base case:
+    if(s > e){
+        return NULL;
+    }
+    int mid = (s+e)/2;
+    int element = inorder[mid];
+    Node* root = new Node(element);
+
+    root->left = bstUsingInorder(inorder,s,mid-1);
+    root->right = bstUsingInorder(inorder,mid+1,e);
+    return root;
+
+}
+
 int main()
 {
-    Node* root = NULL;
-    cout<<"Enter the data for Node "<<endl;
-    takeInput(root);
-    cout<<"Print the BST Created: "<<endl;
+    // Node* root = NULL;
+    // cout<<"Enter the data for Node "<<endl;
+    // takeInput(root);
+    // cout<<"Print the BST Created: "<<endl;
+    // levelOrderTraversal(root);
+    // cout<<endl;
+    // cout<<"print inorder traversal:"<<endl;
+    // printInorder(root);
+    // cout<<endl;
+
+    // cout<<"print preorder traversal:"<<endl;
+    // printPreorder(root);
+    // cout<<endl;
+
+    // cout<<"print postorder traversal:"<<endl;
+    // printPostorder(root);
+    // cout<<endl;
+
+    int inorder[] = {1,2,3,4,5,6,7,8,9};
+    int s = 0;
+    int e = 8;
+
+    Node* root = bstUsingInorder(inorder,s,e);
     levelOrderTraversal(root);
-    cout<<endl;
-    cout<<"print inorder traversal:"<<endl;
-    printInorder(root);
-    cout<<endl;
-
-    cout<<"print preorder traversal:"<<endl;
-    printPreorder(root);
-    cout<<endl;
-
-    cout<<"print postorder traversal:"<<endl;
-    printPostorder(root);
-    cout<<endl;
 
  return 0;
 }

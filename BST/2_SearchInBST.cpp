@@ -1,3 +1,6 @@
+// creation // insertion , searching, minm value, max value and deletion:
+
+
 #include<bits/stdc++.h>
 using namespace std;
 #define ll long long
@@ -14,7 +17,6 @@ class Node{
         this->right = NULL;
     }
 };
-
 Node* insertIntoBST(Node* &root,int data){
     if(root == NULL){
         // this is going to be our first node
@@ -106,6 +108,63 @@ void printPostorder(Node* &root){
 
     return;
 }
+
+
+// SEARCHING IN BST::
+//assuming there are only unique values in tree
+Node* findNodeInBST(Node* root, int target) {
+	///base case
+	if(root == NULL) {
+		return NULL;
+	}
+
+	if(root->data == target) 
+		return root;
+//assuming there are only unique values in tree
+	// Node* leftAns = false;
+	// Node* rightAns = false;
+	
+	if(target > root->data) {
+		//right subtree me search karo
+		return findNodeInBST(root->right,  target);
+        // rightAns = findNodeInBST(root->right,  target);
+	}
+	else {
+		return findNodeInBST(root->left,  target);
+        // leftAns = findNodeInBST(root->left,  target);
+
+	}
+    // return leftAns || rightAns;
+}
+
+// finding minimum value in BST::
+
+int minVal(Node* root) {
+	Node* temp = root;
+	if(temp == NULL) {
+		return -1;
+	}
+
+	while(temp -> left != NULL) {
+		temp = temp ->left;
+	}
+	return temp -> data;
+}
+
+// Finding maximum Value in BST::-->
+int maxVal(Node* root) {
+	Node* temp = root;
+	if(temp == NULL) {
+		return -1;
+	}
+
+	while(temp -> right != NULL) {
+		temp = temp ->right;
+	}
+	return temp -> data;
+}
+
+
 
 int main()
 {
