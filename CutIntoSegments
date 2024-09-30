@@ -1,4 +1,6 @@
-// Given a rod of length 'n' and three segments x,y and z. you have to cut the rod in exactly the given segments and you have to return maximum no of segments/partiton reqd;
+// Given a rod of length 'n' and three segments x,y and z. you have to cut the rod in exactly the given segments and you have to 
+return maximum no of segments/partiton reqd;
+https://www.geeksforgeeks.org/problems/cutted-segments1642/1
 
 #include<bits/stdc++.h>
 using namespace std;
