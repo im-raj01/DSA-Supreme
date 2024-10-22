@@ -90,16 +90,49 @@ class Deque{
             rear = size-1;
         }
         else{
+            arr[rear] = -1;
             rear--;
         }
     }
 
-    
+    //print karne ke liye
+    void print(){
+        for(int i = 0;i<size;i++){
+            cout<<arr[i]<<" ";
+        }
+        cout<<endl;
+
+    }
     
 };
 
 int main(){
     // creating a queue of size 8
-    
+    Deque dq(10);
+    dq.print();
+
+    dq.pushRear(10);
+    dq.pushRear(20);
+    dq.pushRear(30);
+    dq.pushRear(40);
+    dq.pushRear(50);
+    dq.pushRear(60);
+    dq.pushRear(70);
+    dq.pushRear(80);
+
+    dq.print();
+    dq.popRear();
+    dq.print();
+
+    dq.popFront();
+    dq.print();
+
+     dq.popFront();
+    dq.print();
+    dq.pushFront(101);
+    dq.print();
+
+
+
 
 }
